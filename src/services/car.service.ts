@@ -19,4 +19,10 @@ export default class CarService implements IService<ICar> {
 
     return result;
   };
+
+  public read = async (): Promise<ICar[]> => {
+    const cars = await this._car.read();
+
+    return cars;
+  };
 }
