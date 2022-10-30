@@ -1,3 +1,5 @@
+import { isValidObjectId } from 'mongoose';
+import CustomError from '../errors/customError';
 import { carMerge, ICar } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
 import IService from '../interfaces/IService';
@@ -24,5 +26,15 @@ export default class CarService implements IService<ICar> {
     const cars = await this._car.read();
 
     return cars;
+  };
+
+  public readOne = async (_id: string): Promise<ICar> => {
+    if (!isValidObjectId(_id)) throw new CustomError(400, 'Id must have 24 hexadecimal characters');
+
+    const car = await this._car.readOne(_id);
+
+    if (!car) throw new CustomError(404, 'Object not found');
+
+    return car;
   };
 }
