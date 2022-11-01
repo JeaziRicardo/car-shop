@@ -25,5 +25,18 @@ describe('Testa a service Car', () => {
     });
 
   });
+
+  describe('Testa o retorno de todos os carros', () => {
+
+    before(async () => {
+      sinon.stub(car, 'read').resolves([validCarId]);
+    });
+
+    it('Retorna todos os carros', async () => {
+      const cars = await carService.read();
+      expect(cars).to.be.deep.equal([validCarId]);
+    });
+
+  });
   
 });
