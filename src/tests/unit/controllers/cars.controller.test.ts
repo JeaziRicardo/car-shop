@@ -37,4 +37,22 @@ describe('Testa a controller Car', () => {
 
   });
 
+  describe('Testa o retorno de todos os carros', () => {
+
+    before(async () => {
+      sinon.stub(carService, 'read').resolves([validCarId])
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+    });
+
+    it('Retorna todos os carros', async () => {
+      await carController.read(req, res);
+
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as sinon.SinonStub).calledWith([validCarId])).to.be.true;
+    });
+
+  });
+
 });
