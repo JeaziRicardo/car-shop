@@ -25,4 +25,17 @@ describe('Testa a model Car', () => {
 
   });
 
+  describe('Testa o retorno de todos os carros', () => {
+
+    before(async () => {
+      sinon.stub(Model, 'find').resolves([validCarId]);
+    });
+
+    it('Retorna todos os carros', async () => {
+      const cars = await car.read();
+      expect(cars).to.be.deep.equal([validCarId]);
+    });
+
+  });
+
 });
